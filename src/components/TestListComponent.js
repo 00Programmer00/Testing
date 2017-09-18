@@ -1,17 +1,22 @@
 import React from 'react';
 import '../App.css';
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 class TestListComponent extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             sections: [],
-            sectionIndex: ''
+            sectionIndex: '',
+            startDate: moment()
         };
 
         this.nextSection = this.nextSection.bind(this);
         this.prevSection = this.prevSection.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount(){
@@ -39,6 +44,12 @@ class TestListComponent extends React.Component{
             this.setState({sectionIndex: this.state.sectionIndex - 1});
         }
     }
+
+    handleChange(date) {
+	    this.setState({
+	      startDate: date
+	    });
+  	}
 
 	render() {
 		return (
@@ -83,7 +94,10 @@ class TestListComponent extends React.Component{
 		      	    	<form>
 		      	    	  <div className="form-group">
 		      	    	    <label>Тип ответа дата (датапикер)</label>
-		      	    	    <input type="datetime-local" className="form-control" id="dateInput" />
+		      	    	    <DatePicker
+						        selected={this.state.startDate}
+						        onChange={this.handleChange}
+						    />
 		      	    	  </div>
 		      	    	</form>
 		      	    </li>
