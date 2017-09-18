@@ -1,16 +1,54 @@
 import React from 'react';
 import '../App.css';
+import axios from 'axios';
 
 class TestListComponent extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            sections: [],
+            sectionIndex: ''
+        };
+
+        this.nextSection = this.nextSection.bind(this);
+        this.prevSection = this.prevSection.bind(this);
+    }
+
+    componentDidMount(){
+        this.getSections();
+    }
+
+    getSections(){
+        axios.get('https://api.myjson.com/bins/nosct').then((response) => {
+            response.data.map((section, i) => {
+                response.data[i].section.id = i;
+                this.setState({sections: [...this.state.sections, response.data[i].section], sectionIndex: 0});
+            });
+            console.log(this.state);
+        });
+    }
+
+    nextSection(){
+        if(this.state.sectionIndex + 1  < this.state.sections.length){
+            this.setState({sectionIndex: this.state.sectionIndex + 1});
+        }
+    }
+
+    prevSection(){
+        if(this.state.sectionIndex  > 0){
+            this.setState({sectionIndex: this.state.sectionIndex - 1});
+        }
+    }
+
 	render() {
 		return (
 	      <div className="container">
 		    <div className="header clearfix">
-  		      <h3>{this.state.sections.length > 0  ? this.state.sections[this.state.sectionIndex].title : 'Loading'}</h3>
-		      <p className="float-right">Section {this.state.sectionIndex + 1} of {this.state.sections.length}</p>
+  		      <h3>{this.state.sections.length > 0  ? this.state.sections[this.state.sectionIndex].title : 'Загрузка'}</h3>
+		      <p className="float-right">Раздел {this.state.sectionIndex + 1} из {this.state.sections.length}</p>
 		      <hr />
-		      <button type="button" className="btn" disabled={this.state.sectionIndex === 0} onClick={this.prevSection}>Back</button>
-				{this.state.sectionIndex + 1 === this.state.sections.length ?  <button type="button" className="btn" id="btn-forward">Send</button> : <button type="button" className="btn" id="btn-forward" onClick={this.nextSection}>Forward</button>}
+		      <button type="button" className="btn" disabled={this.state.sectionIndex === 0} onClick={this.prevSection}>Назад</button>
+				{this.state.sectionIndex + 1 === this.state.sections.length ?  <button type="button" className="btn" id="btn-forward">Отправить</button> : <button type="button" className="btn" id="btn-forward" onClick={this.nextSection}>Вперед</button>}
 		    </div>
 
 		    <div className="main">
