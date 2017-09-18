@@ -22,3 +22,28 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
+.header h3, p {
+  display: inline;
+}
+
+#btn-forward {
+  float: right;
+}
+
+.main {
+  margin: 30px auto;
+}
+
+.main ul {
+  list-style-type: none;
+}
+
+.main li {
+  margin: 10px auto;
+}
+
+#numberInput, #dateInput {
+  width: 25%;
+}
