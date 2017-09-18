@@ -1,45 +1,7 @@
 import React from 'react';
 import '../App.css';
-import axios from 'axios';
 
 class TestListComponent extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            sections: [],
-			sectionIndex: ''
-        };
-
-        this.nextSection = this.nextSection.bind(this);
-        this.prevSection = this.prevSection.bind(this);
-    }
-
-    componentDidMount(){
-        this.getSections();
-    }
-
-    getSections(){
-        axios.get('https://api.myjson.com/bins/nosct').then((response) => {
-            response.data.map((section, i) => {
-            	response.data[i].section.id = i;
-            	this.setState({sections: [...this.state.sections, response.data[i].section], sectionIndex: 0});
-			});
-            console.log(this.state);
-        });
-    }
-
-    nextSection(){
-    	if(this.state.sectionIndex + 1  < this.state.sections.length){
-			this.setState({sectionIndex: this.state.sectionIndex + 1});
-		}
-	}
-
-	prevSection(){
-        if(this.state.sectionIndex  > 0){
-            this.setState({sectionIndex: this.state.sectionIndex - 1});
-        }
-	}
-
 	render() {
 		return (
 	      <div className="container">
@@ -53,12 +15,12 @@ class TestListComponent extends React.Component{
 
 		    <div className="main">
 		      <ol>
-		      	<li>Here comes the question ...
+		      	<li>Вопрос ...
 		      	  <ul>
 		      	    <li>
 		      	    	<form>
 		      	    	  <div className="form-group">
-		      	    	    <label>String Response</label>
+		      	    	    <label>Тип ответа строка</label>
 		      	    	    <input type="text" className="form-control" />
 		      	    	  </div>
 		      	    	</form>
@@ -66,7 +28,7 @@ class TestListComponent extends React.Component{
 		      	    <li>
 		      	    	<form>
 		      	    	  <div className="form-group">
-		      	    	    <label>Textarea Response</label>
+		      	    	    <label>Тип ответа текст</label>
 		      	    	    <textarea className="form-control" rows="3"></textarea>
 		      	    	  </div>
 		      	    	</form>
@@ -74,7 +36,7 @@ class TestListComponent extends React.Component{
 		      	    <li>
 		      	    	<form>
 		      	    	  <div className="form-group">
-		      	    	    <label>Number Response</label>
+		      	    	    <label>Тип ответа число (может иметь максимальное/минимальное знчение, точность)</label>
 		      	    	    <input type="number" className="form-control" id="numberInput"/>
 		      	    	  </div>
 		      	    	</form>
@@ -82,7 +44,7 @@ class TestListComponent extends React.Component{
 		      	    <li>
 		      	    	<form>
 		      	    	  <div className="form-group">
-		      	    	    <label>Date Response</label>
+		      	    	    <label>Тип ответа дата (датапикер)</label>
 		      	    	    <input type="datetime-local" className="form-control" id="dateInput" />
 		      	    	  </div>
 		      	    	</form>
@@ -90,17 +52,17 @@ class TestListComponent extends React.Component{
 		      	    <li>
 		      	    	<form>
 		      	    	  <div className="form-check">
-		      	    	    <label>Boolean Response</label>
+		      	    	    <label>Тип ответа булево</label>
 		      	    	    <div className="form-check">
 							  <label className="form-check-label">
 							    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-							    Yes
+							    Да
 							  </label>
 							</div>
 		      	    	    <div className="form-check">
 							  <label className="form-check-label">
 							    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-							    No
+							    Нет
 							  </label>
 							</div>
 		      	    	  </div>
@@ -109,7 +71,7 @@ class TestListComponent extends React.Component{
 		      	    <li>
 		      	    	<form>
 		      	    	  <div className="form-check">
-		      	    	    <label>Choose one answer</label>
+		      	    	    <label>Тип ответа выбор 1 варианта из предложенных</label>
 		      	    	    <div className="form-check">
 							  <label className="form-check-label">
 							    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
@@ -146,7 +108,7 @@ class TestListComponent extends React.Component{
 		      	    <li>
 		      	    	<form>
 		      	    	  <div className="form-check">
-		      	    	    <label>Choose multiple answer</label>
+		      	    	    <label>Тип ответа выбор нескольких вариантов из предложенных</label>
 		      	    	    <div className="form-check">
 							  <label className="form-check-label">
 							    <input className="form-check-input" type="checkbox" />
@@ -183,7 +145,7 @@ class TestListComponent extends React.Component{
 		      	    <li>
 		      	    	<form>
 		      	    	  <div className="form-group">
-		      	    	    <label>Leave you comment</label>
+		      	    	    <label>Обязательный комментарий</label>
 		      	    	    <textarea className="form-control" rows="2" required></textarea>
 		      	    	  </div>
 		      	    	</form>
@@ -194,8 +156,8 @@ class TestListComponent extends React.Component{
 		    </div>
 
 		    <div className="bottom-nav">
-	    		<button type="button" className="btn">Back</button>
-	      		<button type="button" className="btn" id="btn-forward">Forward</button>
+	    		<button type="button" className="btn">Назад</button>
+	      		<button type="button" className="btn btn-primary" id="btn-forward">Вперед</button>
 		    </div>
 		  </div>
     	);
