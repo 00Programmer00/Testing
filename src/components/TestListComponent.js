@@ -4,6 +4,8 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import 'moment/locale/ru';
+
 
 class TestListComponent extends React.Component{
     constructor(props){
@@ -18,7 +20,8 @@ class TestListComponent extends React.Component{
         this.prevSection = this.prevSection.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-
+	
+    
     componentDidMount(){
         this.getSections();
     }
