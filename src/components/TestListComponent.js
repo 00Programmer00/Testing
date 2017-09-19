@@ -1,17 +1,22 @@
 import React from 'react';
 import '../App.css';
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 class TestListComponent extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             sections: [],
-            sectionIndex: ''
+            sectionIndex: '',
+            startDate: moment()
         };
 
         this.nextSection = this.nextSection.bind(this);
         this.prevSection = this.prevSection.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount(){
@@ -40,6 +45,12 @@ class TestListComponent extends React.Component{
         }
     }
 
+    handleChange(date) {
+	    this.setState({
+	      startDate: date
+	    });
+  	}
+
 	render() {
 		return (
 	      <div className="container">
@@ -48,7 +59,7 @@ class TestListComponent extends React.Component{
 		      <p className="float-right">Раздел {this.state.sectionIndex + 1} из {this.state.sections.length}</p>
 		      <hr />
 		      <button type="button" className="btn" disabled={this.state.sectionIndex === 0} onClick={this.prevSection}>Назад</button>
-				{this.state.sectionIndex + 1 === this.state.sections.length ?  <button type="button" className="btn" id="btn-forward">Отправить</button> : <button type="button" className="btn" id="btn-forward" onClick={this.nextSection}>Вперед</button>}
+				{this.state.sectionIndex + 1 === this.state.sections.length ? <button type="button" className="btn btn-success" id="btn-forward">Отправить</button> : <button type="button" className="btn btn-primary" id="btn-forward" onClick={this.nextSection}>Вперед</button>}
 		    </div>
 
 		    <div className="main">
@@ -83,7 +94,10 @@ class TestListComponent extends React.Component{
 		      	    	<form>
 		      	    	  <div className="form-group">
 		      	    	    <label>Тип ответа дата (датапикер)</label>
-		      	    	    <input type="datetime-local" className="form-control" id="dateInput" />
+		      	    	    <DatePicker
+						        selected={this.state.startDate}
+						        onChange={this.handleChange}
+						    />
 		      	    	  </div>
 		      	    	</form>
 		      	    </li>
@@ -194,8 +208,8 @@ class TestListComponent extends React.Component{
 		    </div>
 
 		    <div className="bottom-nav">
-	    		<button type="button" className="btn">Назад</button>
-	      		<button type="button" className="btn btn-primary" id="btn-forward">Вперед</button>
+	    		<button type="button" className="btn" disabled={this.state.sectionIndex === 0} onClick={this.prevSection}>Назад</button>
+				{this.state.sectionIndex + 1 === this.state.sections.length ?  <button type="button" className="btn btn-success" id="btn-forward">Отправить</button> : <button type="button" className="btn btn-primary" id="btn-forward" onClick={this.nextSection}>Вперед</button>}
 		    </div>
 		  </div>
     	);
