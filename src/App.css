@@ -26,6 +26,9 @@
   width: 25%;
 }
 
-/*textarea {
-  resize: none;
-}*/
+.questions{
+}
+
+.main ol form {
+  padding-left: 25px;
+}
