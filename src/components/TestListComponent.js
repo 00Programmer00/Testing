@@ -19,22 +19,31 @@ class TestListComponent extends React.Component{
         this.nextSection = this.nextSection.bind(this);
         this.prevSection = this.prevSection.bind(this);
         this.handleChange = this.handleChange.bind(this);
+
     }
 	
     
     componentDidMount(){
         this.getSections();
+        this.getQuestions();
     }
 
     getSections(){
         axios.get('https://api.myjson.com/bins/nosct').then((response) => {
-            response.data.map((section, i) => {
-                response.data[i].section.id = i;
-                this.setState({sections: [...this.state.sections, response.data[i].section], sectionIndex: 0});
+            this.setState({sections: [...this.state.sections, response.data[0].section], sectionIndex: 0});
+            response.data.map((question, i) => {
+                this.state.sections.map((current) => {
+                    if(current.guid !== question.section.guid){
+                        this.setState({sections: [...this.state.sections, response.data[i].section], sectionIndex: 0});
+					}
+				});
             });
-            console.log(this.state);
         });
     }
+
+    getQuestions(){
+
+	}
 
     nextSection(){
         if(this.state.sectionIndex + 1  < this.state.sections.length){
