@@ -1,10 +1,15 @@
 import React from 'react';
 import '../App.css';
 import axios from 'axios';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
-import 'moment/locale/ru';
+import StringComponent from './StringComponent';
+import TextComponent from './TextComponent';
+import BooleanComponent from './BooleanComponent';
+import CommentComponent from './CommentComponent';
+import DateComponent from './DateComponent';
+import MultipleAnswerComponent from './MultipleAnswerComponent';
+import NumberComponent from './NumberComponent';
+import SingleAnswerComponent from './SingleAnswerComponent';
+
 
 
 class TestListComponent extends React.Component{
@@ -14,12 +19,10 @@ class TestListComponent extends React.Component{
         	questions: [],
             sections: [],
             sectionIndex: '',
-            startDate: moment()
         };
 
         this.nextSection = this.nextSection.bind(this);
         this.prevSection = this.prevSection.bind(this);
-        this.handleChange = this.handleChange.bind(this);
 
     }
 	
@@ -29,18 +32,15 @@ class TestListComponent extends React.Component{
     }
 
     getData(){
-        axios.get('https://api.myjson.com/bins/nosct').then((response) => {
+        axios.get('https://api.myjson.com/bins/h3k8d').then((response) => {
             this.setState({questions: response.data, 
             			   sections: [...this.state.sections, response.data[0].section], 
             			   sectionIndex: 0});
-            response.data.map((question, i) => {
-                this.state.sections.map((current) => {
-                    if(current.guid !== question.section.guid){
-                        this.setState({sections: [...this.state.sections, response.data[i].section], 
-                        			   sectionIndex: 0});
-					}
-				});
-            });
+            let sections = [];
+            for(let question of response.data){
+                if(sections.findIndex(section => section.guid === question.section.guid) < 0) sections.push(question.section);
+            }
+            this.setState({ sections });
         });
     }
 
@@ -56,13 +56,34 @@ class TestListComponent extends React.Component{
         }
     }
 
-    handleChange(date) {
-	    this.setState({
-	      startDate: date
-	    });
-  	}
 
 	render() {
+        let type = this.state.questions.map((question, i) => {
+            switch(question.answerType){
+                case 'string': {
+                    return <StringComponent/>;
+                }
+				case 'text': {
+                	return <TextComponent/>;
+				}
+				case 'number': {
+                	return <NumberComponent/>;
+				}
+				case 'date': {
+                	return <DateComponent/>;
+				}
+				case 'bool': {
+                	return <BooleanComponent/>;
+				}
+				case 'oneof': {
+                	return <SingleAnswerComponent/>;
+				}
+				case 'someof': {
+                	return <MultipleAnswerComponent/>;
+				}
+            }
+		});
+
 		const questions = this.state.questions.map((question, i) => {
 			return (
 				<div key={i}>
@@ -70,16 +91,9 @@ class TestListComponent extends React.Component{
 				  	this.state.sections[this.state.sectionIndex].guid 
 					  	? <li>
 					  		{question.title}
-					  		{this.state.questions[i].answerType === "string" 
-					  			? <form>
-					      	    	<div className="form-group">
-					      	    	  <label>Тип ответа строка</label>
-					      	   	      <input type="text" className="form-control" />
-					      	        </div>
-					      	      </form>
-					      	    : null}
-					  	  </li> 
-					  	: null}
+						  	{type[i]}
+					  	  </li>
+					  : null}
 				</div>
 			)
 		});
@@ -111,162 +125,6 @@ class TestListComponent extends React.Component{
 
 		    <div className="main">
 		      <ol>{questions}</ol>
-		      <ol>
-		      	<li>Вопрос ...
-		      	  <ul>
-		      	    <li>
-		      	    	<form>
-		      	    	  <div className="form-group">
-		      	    	    <label>Тип ответа строка</label>
-		      	    	    <input type="text" className="form-control" />
-		      	    	  </div>
-		      	    	</form>
-		      	    </li>
-		      	    <li>
-		      	    	<form>
-		      	    	  <div className="form-group">
-		      	    	    <label>Тип ответа текст</label>
-		      	    	    <textarea className="form-control" rows="3"></textarea>
-		      	    	  </div>
-		      	    	</form>
-		      	    </li>
-		      	    <li>
-		      	    	<form>
-		      	    	  <div className="form-group">
-		      	    	    <label>Тип ответа число (может иметь максимальное/минимальное знaчение, точность)</label>
-		      	    	    <input type="number" className="form-control" id="numberInput"/>
-		      	    	  </div>
-		      	    	</form>
-		      	    </li>
-		      	    <li>
-		      	    	<form>
-		      	    	  <div className="form-group">
-		      	    	    <label>Тип ответа дата (датапикер)</label>
-		      	    	    <DatePicker
-						        selected={this.state.startDate}
-						        onChange={this.handleChange}
-						    />
-		      	    	  </div>
-		      	    	</form>
-		      	    </li>
-		      	    <li>
-		      	    	<form>
-		      	    	  <div className="form-check">
-		      	    	    <label>Тип ответа булево</label>
-		      	    	    <div className="form-check">
-							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" 
-							    		name="exampleRadios" id="exampleRadios1" 
-							    		value="option1" checked />
-							    Да
-							  </label>
-							</div>
-		      	    	    <div className="form-check">
-							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" 
-							    		name="exampleRadios" id="exampleRadios1" 
-							    		value="option1" checked />
-							    Нет
-							  </label>
-							</div>
-		      	    	  </div>
-		      	    	</form>
-		      	    </li>
-		      	    <li>
-		      	    	<form>
-		      	    	  <div className="form-check">
-		      	    	    <label>Тип ответа выбор 1 варианта из предложенных</label>
-		      	    	    <div className="form-check">
-							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" 
-							    		name="exampleRadios" id="exampleRadios1" 
-							    		value="option1" checked />
-							    Option 1
-							  </label>
-							</div>
-		      	    	    <div className="form-check">
-							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" 
-							    		name="exampleRadios" id="exampleRadios1" 
-							    		value="option1" checked />
-							    Option 2
-							  </label>
-							</div>
-							<div className="form-check">
-							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" 
-							    		name="exampleRadios" id="exampleRadios1" 
-							    		value="option1" checked />
-							    Option 3
-							  </label>
-							</div>
-							<div className="form-check">
-							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" 
-							    		name="exampleRadios" id="exampleRadios1" 
-							    		value="option1" checked />
-							    Option 4
-							  </label>
-							</div>
-							<div className="form-check">
-							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" 
-							    		name="exampleRadios" id="exampleRadios1" 
-							    		value="option1" checked />
-							    Option 5
-							  </label>
-							</div>
-		      	    	  </div>
-		      	    	</form>
-		      	    </li>
-		      	    <li>
-		      	    	<form>
-		      	    	  <div className="form-check">
-		      	    	    <label>Тип ответа выбор нескольких вариантов из предложенных</label>
-		      	    	    <div className="form-check">
-							  <label className="form-check-label">
-							    <input className="form-check-input" type="checkbox" />
-							    Option 1
-							  </label>
-							</div>
-		      	    	    <div className="form-check">
-							  <label className="form-check-label">
-							    <input className="form-check-input" type="checkbox" />
-							    Option 2
-							  </label>
-							</div>
-		      	    	    <div className="form-check">
-							  <label className="form-check-label">
-							    <input className="form-check-input" type="checkbox" />
-							    Option 3
-							  </label>
-  		      	    	    <div className="form-check">
-							  <label className="form-check-label">
-							    <input className="form-check-input" type="checkbox" />
-							    Option 4
-							  </label>
-							</div>
-		      	    	    <div className="form-check">
-							  <label className="form-check-label">
-							    <input className="form-check-input" type="checkbox" />
-							    Option 5
-							  </label>
-							</div>
-							</div>
-		      	    	  </div>
-		      	    	</form>
-		      	    </li>
-		      	    <li>
-		      	    	<form>
-		      	    	  <div className="form-group">
-		      	    	    <label>Обязательный комментарий</label>
-		      	    	    <textarea className="form-control" rows="2" required></textarea>
-		      	    	  </div>
-		      	    	</form>
-		      	    </li>
-		      	  </ul>
-		      	</li>
-		      </ol>
 		    </div>
 
 		    <div className="bottom-nav">
