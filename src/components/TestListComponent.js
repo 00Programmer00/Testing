@@ -11,10 +11,10 @@ class TestListComponent extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+        	questions: [],
             sections: [],
             sectionIndex: '',
-            startDate: moment(),
-			questions: []
+            startDate: moment()
         };
 
         this.nextSection = this.nextSection.bind(this);
@@ -30,14 +30,16 @@ class TestListComponent extends React.Component{
 
     getData(){
         axios.get('https://api.myjson.com/bins/nosct').then((response) => {
-            this.setState({sections: [...this.state.sections, response.data[0].section], sectionIndex: 0,questions: [...this.state.questions, response.data]});
+            this.setState({questions: response.data, 
+            			   sections: [...this.state.sections, response.data[0].section], 
+            			   sectionIndex: 0});
             response.data.map((question, i) => {
                 this.state.sections.map((current) => {
                     if(current.guid !== question.section.guid){
-                        this.setState({sections: [...this.state.sections, response.data[i].section], sectionIndex: 0});
+                        this.setState({sections: [...this.state.sections, response.data[i].section], 
+                        			   sectionIndex: 0});
 					}
 				});
-
             });
         });
     }
@@ -61,29 +63,45 @@ class TestListComponent extends React.Component{
   	}
 
 	render() {
-        console.log("Here : ", this.state.questions);
-
-        const questions = this.state.questions.map((question, i) => {
-
-            return (<div key={i}>
-				<h3>
-                    {question.title}
-				</h3>
-				</div>)
+		const questions = this.state.questions.map((question, i) => {
+			return (
+				<div key={i}>
+				  {this.state.questions[i].section.guid === 
+				  	this.state.sections[this.state.sectionIndex].guid 
+					  	? <li>{question.title}</li> 
+					  	: null}
+				</div>
+			)
 		});
 		return (
 	      <div className="container">
 		    <div className="header clearfix">
-  		      <h3>{this.state.sections.length > 0  ? this.state.sections[this.state.sectionIndex].title : 'Загрузка'}</h3>
-		      <p className="float-right">Раздел {this.state.sectionIndex + 1} из {this.state.sections.length}</p>
+  		      <h3>
+  		      	{this.state.sections.length > 0  
+	      			? this.state.sections[this.state.sectionIndex].title 
+	      			: 'Загрузка'}
+  		      </h3>
+		      <p className="float-right">
+		      	Раздел {this.state.sectionIndex + 1} из {this.state.sections.length}
+		      </p>
 		      <hr />
-		      <button type="button" className="btn" disabled={this.state.sectionIndex === 0} onClick={this.prevSection}>Назад</button>
-				{this.state.sectionIndex + 1 === this.state.sections.length ? <button type="button" className="btn btn-success" id="btn-forward">Отправить</button> : <button type="button" className="btn btn-primary" id="btn-forward" onClick={this.nextSection}>Вперед</button>}
+		      <button type="button" className="btn" disabled={this.state.sectionIndex === 0} 
+		      		  onClick={this.prevSection}>
+		      		Назад
+		      </button>
+			  {this.state.sectionIndex + 1 === this.state.sections.length 
+			  	? <button type="button" className="btn btn-success" id="btn-forward">
+			  		Отправить
+			  	  </button> 
+			  	: <button type="button" className="btn btn-primary" id="btn-forward" 
+			  			onClick={this.nextSection}>
+			  		Вперед
+			  	</button>}
 		    </div>
-		    <div className="main">
-                {questions}
 
-				<ol>
+		    <div className="main">
+		      <ol>{questions}</ol>
+		      <ol>
 		      	<li>Вопрос ...
 		      	  <ul>
 		      	    <li>
@@ -105,7 +123,7 @@ class TestListComponent extends React.Component{
 		      	    <li>
 		      	    	<form>
 		      	    	  <div className="form-group">
-		      	    	    <label>Тип ответа число (может иметь максимальное/минимальное знчение, точность)</label>
+		      	    	    <label>Тип ответа число (может иметь максимальное/минимальное знaчение, точность)</label>
 		      	    	    <input type="number" className="form-control" id="numberInput"/>
 		      	    	  </div>
 		      	    	</form>
@@ -127,13 +145,17 @@ class TestListComponent extends React.Component{
 		      	    	    <label>Тип ответа булево</label>
 		      	    	    <div className="form-check">
 							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
+							    <input className="form-check-input" type="radio" 
+							    		name="exampleRadios" id="exampleRadios1" 
+							    		value="option1" checked />
 							    Да
 							  </label>
 							</div>
 		      	    	    <div className="form-check">
 							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
+							    <input className="form-check-input" type="radio" 
+							    		name="exampleRadios" id="exampleRadios1" 
+							    		value="option1" checked />
 							    Нет
 							  </label>
 							</div>
@@ -146,31 +168,41 @@ class TestListComponent extends React.Component{
 		      	    	    <label>Тип ответа выбор 1 варианта из предложенных</label>
 		      	    	    <div className="form-check">
 							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
+							    <input className="form-check-input" type="radio" 
+							    		name="exampleRadios" id="exampleRadios1" 
+							    		value="option1" checked />
 							    Option 1
 							  </label>
 							</div>
 		      	    	    <div className="form-check">
 							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
+							    <input className="form-check-input" type="radio" 
+							    		name="exampleRadios" id="exampleRadios1" 
+							    		value="option1" checked />
 							    Option 2
 							  </label>
 							</div>
 							<div className="form-check">
 							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
+							    <input className="form-check-input" type="radio" 
+							    		name="exampleRadios" id="exampleRadios1" 
+							    		value="option1" checked />
 							    Option 3
 							  </label>
 							</div>
 							<div className="form-check">
 							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
+							    <input className="form-check-input" type="radio" 
+							    		name="exampleRadios" id="exampleRadios1" 
+							    		value="option1" checked />
 							    Option 4
 							  </label>
 							</div>
 							<div className="form-check">
 							  <label className="form-check-label">
-							    <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
+							    <input className="form-check-input" type="radio" 
+							    		name="exampleRadios" id="exampleRadios1" 
+							    		value="option1" checked />
 							    Option 5
 							  </label>
 							</div>
@@ -228,8 +260,17 @@ class TestListComponent extends React.Component{
 		    </div>
 
 		    <div className="bottom-nav">
-	    		<button type="button" className="btn" disabled={this.state.sectionIndex === 0} onClick={this.prevSection}>Назад</button>
-				{this.state.sectionIndex + 1 === this.state.sections.length ?  <button type="button" className="btn btn-success" id="btn-forward">Отправить</button> : <button type="button" className="btn btn-primary" id="btn-forward" onClick={this.nextSection}>Вперед</button>}
+	    		<button type="button" className="btn" disabled={this.state.sectionIndex === 0} 
+	    				onClick={this.prevSection}>Назад</button>
+				{this.state.sectionIndex + 1 === this.state.sections.length 
+					?  <button type="button" className="btn btn-success" 
+								id="btn-forward">
+							Отправить
+						</button> 
+					:   <button type="button" className="btn btn-primary" id="btn-forward" 
+								onClick={this.nextSection}>
+							Вперед
+						</button>}
 		    </div>
 		  </div>
     	);
