@@ -13,7 +13,8 @@ class TestListComponent extends React.Component{
         this.state = {
             sections: [],
             sectionIndex: '',
-            startDate: moment()
+            startDate: moment(),
+			questions: []
         };
 
         this.nextSection = this.nextSection.bind(this);
@@ -24,26 +25,22 @@ class TestListComponent extends React.Component{
 	
     
     componentDidMount(){
-        this.getSections();
-        this.getQuestions();
+        this.getData();
     }
 
-    getSections(){
+    getData(){
         axios.get('https://api.myjson.com/bins/nosct').then((response) => {
-            this.setState({sections: [...this.state.sections, response.data[0].section], sectionIndex: 0});
+            this.setState({sections: [...this.state.sections, response.data[0].section], sectionIndex: 0,questions: [...this.state.questions, response.data]});
             response.data.map((question, i) => {
                 this.state.sections.map((current) => {
                     if(current.guid !== question.section.guid){
                         this.setState({sections: [...this.state.sections, response.data[i].section], sectionIndex: 0});
 					}
 				});
+
             });
         });
     }
-
-    getQuestions(){
-
-	}
 
     nextSection(){
         if(this.state.sectionIndex + 1  < this.state.sections.length){
@@ -64,6 +61,16 @@ class TestListComponent extends React.Component{
   	}
 
 	render() {
+        console.log("Here: ", this.state.questions);
+
+        const questions = this.state.questions.map((question, i) => {
+
+            return (<div key={i}>
+				<h3>
+                    {question.title}
+				</h3>
+				</div>)
+		});
 		return (
 	      <div className="container">
 		    <div className="header clearfix">
@@ -73,9 +80,10 @@ class TestListComponent extends React.Component{
 		      <button type="button" className="btn" disabled={this.state.sectionIndex === 0} onClick={this.prevSection}>Назад</button>
 				{this.state.sectionIndex + 1 === this.state.sections.length ? <button type="button" className="btn btn-success" id="btn-forward">Отправить</button> : <button type="button" className="btn btn-primary" id="btn-forward" onClick={this.nextSection}>Вперед</button>}
 		    </div>
-
 		    <div className="main">
-		      <ol>
+                {questions}
+
+				<ol>
 		      	<li>Вопрос ...
 		      	  <ul>
 		      	    <li>
