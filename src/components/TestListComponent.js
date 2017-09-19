@@ -68,7 +68,17 @@ class TestListComponent extends React.Component{
 				<div key={i}>
 				  {this.state.questions[i].section.guid === 
 				  	this.state.sections[this.state.sectionIndex].guid 
-					  	? <li>{question.title}</li> 
+					  	? <li>
+					  		{question.title}
+					  		{this.state.questions[i].answerType === "string" 
+					  			? <form>
+					      	    	<div className="form-group">
+					      	    	  <label>Тип ответа строка</label>
+					      	   	      <input type="text" className="form-control" />
+					      	        </div>
+					      	      </form>
+					      	    : null}
+					  	  </li> 
 					  	: null}
 				</div>
 			)
