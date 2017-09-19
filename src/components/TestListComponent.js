@@ -61,7 +61,7 @@ class TestListComponent extends React.Component{
   	}
 
 	render() {
-        console.log("Here: ", this.state.questions);
+        console.log("Here : ", this.state.questions);
 
         const questions = this.state.questions.map((question, i) => {
 
