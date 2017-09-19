@@ -64,8 +64,16 @@ class TestListComponent extends React.Component{
 
 	render() {
 		const questions = this.state.questions.map((question, i) => {
-			console.log('questions', this.state.questions);
-			return <li key={i}>{question.title}</li>
+			console.log('questions', this.state.questions[i].section.guid);
+			console.log('current section', this.state.sections[this.state.sectionIndex].guid)
+			return (
+				<div>
+				  {this.state.questions[i].section.guid === 
+				  	this.state.sections[this.state.sectionIndex].guid 
+					  	? <li key={i}>{question.title}</li> 
+					  	: null}
+				</div>
+			)
 		});
 		return (
 	      <div className="container">
@@ -73,8 +81,18 @@ class TestListComponent extends React.Component{
   		      <h3>{this.state.sections.length > 0  ? this.state.sections[this.state.sectionIndex].title : 'Загрузка'}</h3>
 		      <p className="float-right">Раздел {this.state.sectionIndex + 1} из {this.state.sections.length}</p>
 		      <hr />
-		      <button type="button" className="btn" disabled={this.state.sectionIndex === 0} onClick={this.prevSection}>Назад</button>
-				{this.state.sectionIndex + 1 === this.state.sections.length ? <button type="button" className="btn btn-success" id="btn-forward">Отправить</button> : <button type="button" className="btn btn-primary" id="btn-forward" onClick={this.nextSection}>Вперед</button>}
+		      <button type="button" className="btn" disabled={this.state.sectionIndex === 0} 
+		      		  onClick={this.prevSection}>
+		      		Назад
+		      </button>
+			  {this.state.sectionIndex + 1 === this.state.sections.length 
+			  ? <button type="button" className="btn btn-success" id="btn-forward">
+			  		Отправить
+			  	  </button> 
+			  : <button type="button" className="btn btn-primary" id="btn-forward" 
+			  			onClick={this.nextSection}>
+			  		Вперед
+			  	</button>}
 		    </div>
 
 		    <div className="main">
