@@ -11,6 +11,7 @@ class TestListComponent extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+        	questions: [],
             sections: [],
             sectionIndex: '',
             startDate: moment()
@@ -24,26 +25,24 @@ class TestListComponent extends React.Component{
 	
     
     componentDidMount(){
-        this.getSections();
-        this.getQuestions();
+        this.getData();
     }
 
-    getSections(){
+    getData(){
         axios.get('https://api.myjson.com/bins/nosct').then((response) => {
-            this.setState({sections: [...this.state.sections, response.data[0].section], sectionIndex: 0});
+            this.setState({questions: response.data, 
+            			   sections: [...this.state.sections, response.data[0].section], 
+            			   sectionIndex: 0});
             response.data.map((question, i) => {
                 this.state.sections.map((current) => {
                     if(current.guid !== question.section.guid){
-                        this.setState({sections: [...this.state.sections, response.data[i].section], sectionIndex: 0});
+                        this.setState({sections: [...this.state.sections, response.data[i].section], 
+                        			   sectionIndex: 0});
 					}
 				});
             });
         });
     }
-
-    getQuestions(){
-
-	}
 
     nextSection(){
         if(this.state.sectionIndex + 1  < this.state.sections.length){
@@ -64,6 +63,10 @@ class TestListComponent extends React.Component{
   	}
 
 	render() {
+		const questions = this.state.questions.map((question, i) => {
+			console.log('questions', this.state.questions);
+			return <li key={i}>{question.title}</li>
+		});
 		return (
 	      <div className="container">
 		    <div className="header clearfix">
@@ -75,6 +78,7 @@ class TestListComponent extends React.Component{
 		    </div>
 
 		    <div className="main">
+		      <ol>{questions}</ol>
 		      <ol>
 		      	<li>Вопрос ...
 		      	  <ul>
