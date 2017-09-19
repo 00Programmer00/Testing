@@ -123,7 +123,7 @@ class TestListComponent extends React.Component{
 		      	    <li>
 		      	    	<form>
 		      	    	  <div className="form-group">
-		      	    	    <label>Тип ответа число (может иметь максимальное/минимальное знчение, точность)</label>
+		      	    	    <label>Тип ответа число (может иметь максимальное/минимальное знaчение, точность)</label>
 		      	    	    <input type="number" className="form-control" id="numberInput"/>
 		      	    	  </div>
 		      	    	</form>
@@ -260,8 +260,17 @@ class TestListComponent extends React.Component{
 		    </div>
 
 		    <div className="bottom-nav">
-	    		<button type="button" className="btn" disabled={this.state.sectionIndex === 0} onClick={this.prevSection}>Назад</button>
-				{this.state.sectionIndex + 1 === this.state.sections.length ?  <button type="button" className="btn btn-success" id="btn-forward">Отправить</button> : <button type="button" className="btn btn-primary" id="btn-forward" onClick={this.nextSection}>Вперед</button>}
+	    		<button type="button" className="btn" disabled={this.state.sectionIndex === 0} 
+	    				onClick={this.prevSection}>Назад</button>
+				{this.state.sectionIndex + 1 === this.state.sections.length 
+					?  <button type="button" className="btn btn-success" 
+								id="btn-forward">
+							Отправить
+						</button> 
+					:   <button type="button" className="btn btn-primary" id="btn-forward" 
+								onClick={this.nextSection}>
+							Вперед
+						</button>}
 		    </div>
 		  </div>
     	);
