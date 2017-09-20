@@ -19,11 +19,13 @@ class TestListComponent extends React.Component{
         	questions: [],
             sections: [],
             sectionIndex: '',
+			answers: {},
+			value: ''
         };
 
         this.nextSection = this.nextSection.bind(this);
         this.prevSection = this.prevSection.bind(this);
-
+        this.onChange = this.onChange.bind(this);
     }
 	
     
@@ -56,21 +58,43 @@ class TestListComponent extends React.Component{
         }
     }
 
+    onChange(value, guid){
+    	console.log(guid);
+    	let answers = Object.assign(this.state.answers);
+    	answers[guid] = value;
+    	this.setState({answers}, () => {console.log(this.state.answers);});
+	}
 
 	render() {
         let type = this.state.questions.map((question, i) => {
             switch(question.answerType){
                 case 'string': {
-                    return <StringComponent/>;
+                    return <StringComponent onChange={this.onChange} question={question}
+											value={this.state.answers[question.guid] !== undefined
+												? this.state.answers[question.guid]
+												:null}
+											key={i}/>;
                 }
 				case 'text': {
-                	return <TextComponent/>;
+                	return <TextComponent onChange={this.onChange} question={question}
+										  value={this.state.answers[question.guid] !== undefined
+                                              ? this.state.answers[question.guid]
+                                              :null}
+										  key={i}/>;
 				}
 				case 'number': {
-                	return <NumberComponent/>;
+                	return <NumberComponent onChange={this.onChange} question={question}
+											value={this.state.answers[question.guid] !== undefined
+                                                ? this.state.answers[question.guid]
+                                                :null}
+											key={i}/>;
 				}
 				case 'date': {
-                	return <DateComponent/>;
+                	return <DateComponent onChange={this.onChange} question={question}
+										  value={this.state.answers[question.guid] !== undefined
+                                              ? this.state.answers[question.guid]
+                                              :null}
+										  key={i}/>;
 				}
 				case 'bool': {
                 	return <BooleanComponent/>;
