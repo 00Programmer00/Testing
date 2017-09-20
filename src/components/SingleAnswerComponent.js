@@ -5,7 +5,7 @@ export default class SingleAnswerComponent extends React.Component{
     render(){
         let variants = this.props.question.answerVariants.map((variant, i) => {
           return (
-            <div>
+            <div key={i}>
               <label className="form-check-label">
                 <input className="form-check-input" type="radio"
                        name="exampleRadios" id="exampleRadios1"

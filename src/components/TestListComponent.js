@@ -20,7 +20,8 @@ class TestListComponent extends React.Component{
             sections: [],
             sectionIndex: '',
 			answers: {},
-			value: ''
+			value: '',
+			status: false
         };
 
         this.nextSection = this.nextSection.bind(this);
@@ -29,11 +30,14 @@ class TestListComponent extends React.Component{
         this.someOf = this.someOf.bind(this);
         this.sendAnswers = this.sendAnswers.bind(this);
     }
-	
-    
+
+
     componentDidMount(){
         this.getData();
     }
+
+
+
     getData(){
         axios.get('https://api.myjson.com/bins/1h43gp').then((response) => {
             this.setState({questions: response.data, 
@@ -43,7 +47,7 @@ class TestListComponent extends React.Component{
             for(let question of response.data){
                 if(sections.findIndex(section => section.guid === question.section.guid) < 0) sections.push(question.section);
             }
-            this.setState({ sections });
+            this.setState({ sections , status: true});
         });
     }
 
@@ -98,7 +102,7 @@ class TestListComponent extends React.Component{
                 	return <TextComponent onChange={this.onChange} question={question}
 										  value={this.state.answers[question.guid] !== undefined
                                               ? this.state.answers[question.guid]
-                                              :null}
+                                              :null}Name
 										  key={i}/>;
 				}
 				case 'number': {
@@ -153,6 +157,7 @@ class TestListComponent extends React.Component{
 			)
 		});
 		return (
+            this.state.status?(
 	      <div className="container">
 		    <div className="header clearfix">
   		      <h3>
@@ -197,7 +202,13 @@ class TestListComponent extends React.Component{
 						</button>}
 		    </div>
 		  </div>
-    	);
+    	):(<div className="cssload-container">
+			<div className="cssload-lt"></div>
+			<div className="cssload-rt"></div>
+			<div className="cssload-lb"></div>
+			<div className="cssload-rb"></div>
+		</div>)
+		)
 	}
 }
 
