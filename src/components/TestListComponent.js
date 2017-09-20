@@ -27,6 +27,7 @@ class TestListComponent extends React.Component{
         this.prevSection = this.prevSection.bind(this);
         this.onChange = this.onChange.bind(this);
         this.someOf = this.someOf.bind(this);
+        this.sendAnswers = this.sendAnswers.bind(this);
     }
 	
     
@@ -76,10 +77,12 @@ class TestListComponent extends React.Component{
             answers[guid] = answers[guid] ? [...answers[guid], value] : [value];
         }
         this.setState({answers}, () => {console.log(this.state.answers);});
-
-
-
     }
+
+    sendAnswers(){
+		console.log("Hey here is your answers!!! : ", this.state.answers);
+		// axios.post('',this.state.answers);
+	}
 
 	render() {
         let type = this.state.questions.map((question, i) => {
@@ -166,7 +169,7 @@ class TestListComponent extends React.Component{
 		      		Назад
 		      </button>
 			  {this.state.sectionIndex + 1 === this.state.sections.length 
-			  	? <button type="button" className="btn btn-success" id="btn-forward">
+			  	? <button type="button" className="btn btn-success" id="btn-forward" onClick={this.sendAnswers}>
 			  		Отправить
 			  	  </button> 
 			  	: <button type="button" className="btn btn-primary" id="btn-forward" 
@@ -184,7 +187,8 @@ class TestListComponent extends React.Component{
 	    				onClick={this.prevSection}>Назад</button>
 				{this.state.sectionIndex + 1 === this.state.sections.length 
 					?  <button type="button" className="btn btn-success" 
-								id="btn-forward">
+								id="btn-forward"
+								onClick={this.sendAnswers}>
 							Отправить
 						</button> 
 					:   <button type="button" className="btn btn-primary" id="btn-forward" 
