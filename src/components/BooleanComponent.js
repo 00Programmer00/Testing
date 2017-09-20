@@ -10,7 +10,7 @@ export default class BooleanComponent extends React.Component{
                         <label className="form-check-label">
                             <input className="form-check-input" type="radio"
                                    name="exampleRadios" id="exampleRadios1"
-                                   value="option1" checked />
+                                   value='true' checked={this.props.value === "true"} onChange={(e)=>this.props.onChange(e.target.value, this.props.question.guid)}/>
                             Да
                         </label>
                     </div>
@@ -18,7 +18,7 @@ export default class BooleanComponent extends React.Component{
                         <label className="form-check-label">
                             <input className="form-check-input" type="radio"
                                    name="exampleRadios" id="exampleRadios1"
-                                   value="option1" checked />
+                                   value='false' checked={this.props.value === "false"} onChange={(e)=>this.props.onChange(e.target.value, this.props.question.guid)}/>
                             Нет
                         </label>
                     </div>

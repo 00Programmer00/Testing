@@ -6,7 +6,9 @@ export default class MultipleAnswerComponent extends React.Component{
           return (
             <div className="form-check">
                 <label className="form-check-label">
-                    <input className="form-check-input" type="checkbox" value={"option" + i} />
+                    <input className="form-check-input" type="checkbox" value={variant.guid}
+                           checked={this.props.value !== null ? this.props.value.indexOf(variant.guid) > -1: false}
+                           onChange={(e)=>this.props.onChange(e.target.value, this.props.question.guid)}/>
                     {variant.title}
                 </label>
             </div>
