@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8b68d4b9-d4f0-449c-8bc6-17d810ce8caf" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.css" afterPath="$PROJECT_DIR$/src/App.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/MultipleAnswerComponent.js" afterPath="$PROJECT_DIR$/src/components/MultipleAnswerComponent.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/NumberComponent.js" afterPath="$PROJECT_DIR$/src/components/NumberComponent.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/SingleAnswerComponent.js" afterPath="$PROJECT_DIR$/src/components/SingleAnswerComponent.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/StringComponent.js" afterPath="$PROJECT_DIR$/src/components/StringComponent.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/TestListComponent.js" afterPath="$PROJECT_DIR$/src/components/TestListComponent.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/TextComponent.js" afterPath="$PROJECT_DIR$/src/components/TextComponent.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/DateComponent.js" afterPath="$PROJECT_DIR$/src/components/DateComponent.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="TestListComponent.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestListComponent.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/TestListComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="823">
-              <caret line="203" column="16" lean-forward="true" selection-start-line="203" selection-start-column="16" selection-end-line="203" selection-end-column="16" />
+            <state relative-caret-position="568">
+              <caret line="208" column="9" lean-forward="false" selection-start-line="208" selection-start-column="9" selection-end-line="208" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -63,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DateComponent.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DateComponent.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/DateComponent.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="46" lean-forward="false" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
+            <state relative-caret-position="340">
+              <caret line="20" column="48" lean-forward="true" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -140,7 +134,6 @@
         <option value="$PROJECT_DIR$/src/components/asaflkn.js" />
         <option value="$PROJECT_DIR$/src/components/String.js" />
         <option value="$PROJECT_DIR$/src/components/CommentComponent.js" />
-        <option value="$PROJECT_DIR$/src/components/DateComponent.js" />
         <option value="$PROJECT_DIR$/src/components/text" />
         <option value="$PROJECT_DIR$/src/components/BooleanComponent.js" />
         <option value="$PROJECT_DIR$/src/components/MultipleAnswerComponent.js" />
@@ -152,6 +145,7 @@
         <option value="$PROJECT_DIR$/public/loader/loader.html" />
         <option value="$PROJECT_DIR$/src/App.css" />
         <option value="$PROJECT_DIR$/src/components/TestListComponent.js" />
+        <option value="$PROJECT_DIR$/src/components/DateComponent.js" />
       </list>
     </option>
   </component>
@@ -251,7 +245,7 @@
       <workItem from="1505717907840" duration="14866000" />
       <workItem from="1505802267288" duration="20717000" />
       <workItem from="1505888571190" duration="7577000" />
-      <workItem from="1505896629193" duration="16019000" />
+      <workItem from="1505896629193" duration="17045000" />
     </task>
     <task id="LOCAL-00001" summary="Start of project">
       <created>1505720029384</created>
@@ -351,11 +345,25 @@
       <option name="project" value="LOCAL" />
       <updated>1505913048813</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Add spinner">
+      <created>1505915924093</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1505915924093</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Add spinner(fix)">
+      <created>1505916184128</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1505916184128</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59179000" />
+    <option name="totallyTimeSpent" value="60205000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -404,7 +412,9 @@
     <MESSAGE value="Styles fix" />
     <MESSAGE value="Add questions to state" />
     <MESSAGE value="Add post" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add post" />
+    <MESSAGE value="Add spinner" />
+    <MESSAGE value="Add spinner(fix)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add spinner(fix)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -717,16 +727,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/DateComponent.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="46" lean-forward="false" selection-start-line="10" selection-start-column="46" selection-end-line="10" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/CommentComponent.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -761,9 +761,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/TestListComponent.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="823">
-          <caret line="203" column="16" lean-forward="true" selection-start-line="203" selection-start-column="16" selection-end-line="203" selection-end-column="16" />
+        <state relative-caret-position="568">
+          <caret line="208" column="9" lean-forward="false" selection-start-line="208" selection-start-column="9" selection-end-line="208" selection-end-column="9" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/DateComponent.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="48" lean-forward="true" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
