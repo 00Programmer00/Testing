@@ -26,13 +26,13 @@ class TestListComponent extends React.Component{
         this.nextSection = this.nextSection.bind(this);
         this.prevSection = this.prevSection.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.someOf = this.someOf.bind(this);
     }
 	
     
     componentDidMount(){
         this.getData();
     }
-
     getData(){
         axios.get('https://api.myjson.com/bins/1h43gp').then((response) => {
             this.setState({questions: response.data, 
@@ -64,6 +64,22 @@ class TestListComponent extends React.Component{
     	answers[guid] = value;
     	this.setState({answers}, () => {console.log(this.state.answers);});
 	}
+
+	someOf(value, guid){
+		let answers = Object.assign(this.state.answers);
+		console.log("value: ",value, 'guid',guid);
+
+		let index = answers[guid] ? answers[guid].indexOf(value) : -1;
+		if(index > -1 ){
+			answers[guid].splice(index,1);
+		}else{
+            answers[guid] = answers[guid] ? [...answers[guid], value] : [value];
+        }
+        this.setState({answers}, () => {console.log(this.state.answers);});
+
+
+
+    }
 
 	render() {
         let type = this.state.questions.map((question, i) => {
@@ -97,13 +113,25 @@ class TestListComponent extends React.Component{
 										  key={i}/>;
 				}
 				case 'bool': {
-                	return <BooleanComponent/>;
+                	return <BooleanComponent onChange={this.onChange} question={question}
+											 value={this.state.answers[question.guid] !== undefined
+                                                 ? this.state.answers[question.guid]
+                                                 :null}
+											 key={i}/>;
 				}
 				case 'oneof': {
-                	return <SingleAnswerComponent question={question} />;
+                	return <SingleAnswerComponent onChange={this.onChange} question={question}
+												  value={this.state.answers[question.guid] !== undefined
+                                                      ? this.state.answers[question.guid]
+                                                      :null}
+												  key={i}/>;
 				}
 				case 'someof': {
-                	return <MultipleAnswerComponent question={question} />;
+                	return <MultipleAnswerComponent onChange={this.someOf} question={question}
+													value={this.state.answers[question.guid] !== undefined
+                                                        ? this.state.answers[question.guid]
+                                                        :null}
+													key={i}/>;
 				}
             }
 		});
