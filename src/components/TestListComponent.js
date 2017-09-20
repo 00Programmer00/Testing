@@ -99,10 +99,10 @@ class TestListComponent extends React.Component{
                 	return <BooleanComponent/>;
 				}
 				case 'oneof': {
-                	return <SingleAnswerComponent/>;
+                	return <SingleAnswerComponent question={question} />;
 				}
 				case 'someof': {
-                	return <MultipleAnswerComponent/>;
+                	return <MultipleAnswerComponent question={question} />;
 				}
             }
 		});

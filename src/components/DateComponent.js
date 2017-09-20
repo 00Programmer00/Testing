@@ -6,13 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 
 export default class DateComponent extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-        };
-        this.handleChange = this.handleChange.bind(this);
-
-    }
+    
     handleChange(date) {
         this.props.onChange(date, this.props.question.guid);
     }
@@ -25,7 +19,7 @@ export default class DateComponent extends React.Component{
                     <label>Тип ответа дата (датапикер)</label>
                     <DatePicker
                         selected={this.props.value}
-                        onChange={this.handleChange}
+                        onChange={this.handleChange.bind(this)}
                     />
                 </div>
             </form>
