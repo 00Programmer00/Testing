@@ -32,9 +32,8 @@ class TestListComponent extends React.Component{
     componentDidMount(){
         this.getData();
     }
-
     getData(){
-        axios.get('https://api.myjson.com/bins/h3k8d').then((response) => {
+        axios.get('https://api.myjson.com/bins/1h43gp').then((response) => {
             this.setState({questions: response.data, 
             			   sections: [...this.state.sections, response.data[0].section], 
             			   sectionIndex: 0});
