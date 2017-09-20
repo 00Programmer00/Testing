@@ -4,7 +4,7 @@ export default class MultipleAnswerComponent extends React.Component{
     render(){
         let variants = this.props.question.answerVariants.map((variant, i) => {
           return (
-            <div className="form-check">
+            <div className="form-check" key={i}>
                 <label className="form-check-label">
                     <input className="form-check-input" type="checkbox" value={variant.guid}
                            checked={this.props.value !== null ? this.props.value.indexOf(variant.guid) > -1: false}
