@@ -18,6 +18,7 @@ export default class DateComponent extends React.Component{
                 <div className="form-group">
                     <label>Тип ответа дата (датапикер)</label>
                     <DatePicker
+                        className="form-control"
                         selected={this.props.value}
                         onChange={this.handleChange.bind(this)}
                     />
