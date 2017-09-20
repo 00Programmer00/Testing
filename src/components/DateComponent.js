@@ -9,15 +9,12 @@ export default class DateComponent extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            startDate: moment()
         };
         this.handleChange = this.handleChange.bind(this);
 
     }
     handleChange(date) {
-        this.setState({
-            startDate: date
-        });
+        this.props.onChange(date, this.props.question.guid);
     }
 
 
@@ -27,7 +24,7 @@ export default class DateComponent extends React.Component{
                 <div className="form-group">
                     <label>Тип ответа дата (датапикер)</label>
                     <DatePicker
-                        selected={this.state.startDate}
+                        selected={this.props.value}
                         onChange={this.handleChange}
                     />
                 </div>
